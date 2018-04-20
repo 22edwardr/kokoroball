@@ -1,0 +1,19 @@
+body{
+	background-color: #2A4F6E;
+	color: #FFF;
+	margin-top: 51px; 	
+}
+.fondo-lado{
+	padding: 0px;
+	background-color: #2B2B2B;
+}
+.margin-0{
+	margin-bottom: 0px;
+}
+.espacio-contenido{
+	padding-left:  5%;
+	padding-top: 2%; 
+}
+.letra-negra{
+	color: black;
+}
