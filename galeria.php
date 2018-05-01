@@ -1,5 +1,6 @@
 <?php
 include 'sesion.php';
+require_once 'i18n.init.php';
 ?>
 <html lang="es">
 	<head>
@@ -41,6 +42,10 @@ include 'sesion.php';
 				document.getElementById("nombreUsuario").innerHTML = '<?php echo $_SESSION['name'] ?> <span class="caret"></span>';
 
 				document.getElementById("galeria").className += "active";
+
+				$('.cambioIdioma').each(function(index){
+					$(this).attr('href',$(this).attr('href') + '<?php echo basename($_SERVER['PHP_SELF']); ?>' +location.search)
+				});
 				//class="active"
 			});
 		});

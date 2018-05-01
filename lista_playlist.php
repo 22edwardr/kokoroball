@@ -1,6 +1,7 @@
 <?php
 include 'sesion.php';
 include 'conexion.php';
+require_once 'i18n.init.php';
    
    $sql = 'SELECT lp.id,lp.nombre,lp.descripcion,lp.id_usuario,lp.fecha FROM lista_playlist lp order by RAND()';
 ?>
@@ -45,10 +46,10 @@ include 'conexion.php';
 			</div>
 			<div class="col-md-10 espacio-contenido">
 				<div id="mensaje" style="display:none;" class="alert alert-dismissible" role="alert">
-			 		<strong>Mensaje: </strong><div style="display:inline;" id="mensajeTexto"></div>
+			 		<strong><?php echo L::Mensaje; ?></strong><div style="display:inline;" id="mensajeTexto"></div>
 				</div>			
  				<div align="center">
-				<button type="submit" id="irAInsertar" data-toggle="modal" data-target="#myModal" class="btn btn-success" >Inserta una nueva lista</button>
+				<button type="submit" id="irAInsertar" data-toggle="modal" data-target="#myModal" class="btn btn-success" ><?php echo L::Inserta_una_nueva_lista; ?></button>
 				<br/>
 				<br/>
 				</div>
@@ -66,12 +67,12 @@ include 'conexion.php';
 					<thead style="background-color: #303030;
     color: white;">
 						<tr align="center">
-							<td>#</td>
-							<td>Nombre</td>
-							<td>Descripcion</td>
-							<td>Fecha</td>
-							<td>Vamonos!!</td>
-							<td>Cambiale si quieres</td>
+							<td><?php echo L::Numero; ?></td>
+							<td><?php echo L::Nombre; ?></td>
+							<td><?php echo L::Descripcion; ?></td>
+							<td><?php echo L::Fecha; ?></td>
+							<td><?php echo L::Vamonos; ?></td>
+							<td><?php echo L::Cambiale_si_quieres; ?></td>
 						</tr>
 					</thead>
 			<?php
@@ -95,11 +96,11 @@ include 'conexion.php';
   						<td id="nombreCelda<?php echo $row2['id']; ?>"><?php echo $row2['nombre']; ?></td>
 						<td id="descripcionCelda<?php echo $row2['id']; ?>"><?php echo $row2['descripcion']; ?></td>
 						<td><?php echo $row2['fecha']; ?> </td>
-						<td><button type="button" id="irAPlaylist<?php echo $row2['id'];?>" class="btn btn-primary">Vamonos!!</button></td>
-						<td><button type="button" class="btn btn-warning" id="editar<?php echo $row2['id'];?>" data-toggle="modal" data-target="#myModal">Cambiale we</button>
+						<td><button type="button" id="irAPlaylist<?php echo $row2['id'];?>" class="btn btn-primary"><?php echo L::Vamonos; ?></button></td>
+						<td><button type="button" class="btn btn-warning" id="editar<?php echo $row2['id'];?>" data-toggle="modal" data-target="#myModal"><?php echo L::Cambiale_we; ?></button>
 							
 							<input type="hidden" name="id" value="<?php echo $row2['id']; ?>"/>
-							<button type="submit" name="accion" onclick="return confirmar();" value="Eliminar" class="btn btn-danger">Quitalo YA</button></td>
+							<button type="submit" name="accion" onclick="return confirmar();" value="Eliminar" class="btn btn-danger"><?php echo L::Quitalo_YA; ?></button></td>
 
 						
 				</tr>
@@ -126,20 +127,20 @@ include 'conexion.php';
 				    	<form action="modificar_lista_playlist.php" method="POST">
 				      <div class="modal-header">
 				        <button type="button" class="close" data-dismiss="modal">&times;</button>
-				        <h2 class="letra-negra modal-title ">Datos de la lista</h2>
+				        <h2 class="letra-negra modal-title "><?php echo L::Datos_de_la_lista; ?></h2>
 				      </div>
 				      <div class="modal-body">
 			      			<input type="hidden" name="id" id="idPlaylist" value=""/>
-							<label class="letra-negra" for="nombre">Nombre</label>
+							<label class="letra-negra" for="nombre"><?php echo L::Nombre; ?></label>
 							<input id="nombre" type="text" name="nombre" class="form-control" maxlength="50"/>
 							<br/>
-							<label class="letra-negra" for="descripcion">Descripción</label>
+							<label class="letra-negra" for="descripcion"><?php echo L::Descripcion; ?></label>
 							<input id="descripcion" type="text" name="descripcion" class="form-control" maxlength="100"/>
 							<br/>
 				      </div>
 				      <div class="modal-footer">
-				      	<button type="submit" id="guardar" class="btn btn-success" name="accion" value="">Guardar</button>
-				        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+				      	<button type="submit" id="guardar" class="btn btn-success" name="accion" value=""><?php echo L::Guardar; ?></button>
+				        <button type="button" class="btn btn-danger" data-dismiss="modal"><?php echo L::Cancelar; ?></button>
 				      </div>
 				      </form>
 				    </div>
@@ -159,6 +160,10 @@ include 'conexion.php';
 				document.getElementById("nombreUsuario").innerHTML = '<?php echo $_SESSION['name'] ?> <span class="caret"></span>';
 
 				document.getElementById("playlist").className += "active";
+
+				$('.cambioIdioma').each(function(index){
+					$(this).attr('href',$(this).attr('href') + '<?php echo basename($_SERVER['PHP_SELF']); ?>' +location.search)
+				});
 				//class="active"
 			});
 
@@ -173,19 +178,19 @@ include 'conexion.php';
 			if(codigoMensaje != ''){
 				if(codigoMensaje == '1'){
 					document.getElementById("mensaje").className += " alert-success";
-					document.getElementById('mensajeTexto').innerHTML = 'Sugoi';
+					document.getElementById('mensajeTexto').innerHTML = '<?php echo L::Sugoi; ?>';
 				}
 				if(codigoMensaje == '2'){
 					document.getElementById("mensaje").className += " alert-success";
-					document.getElementById('mensajeTexto').innerHTML = 'Se la metiste con toda';
+					document.getElementById('mensajeTexto').innerHTML = '<?php echo L::Se_la_metiste_con_toda; ?>';
 				}
 				if(codigoMensaje=='3'){
 					document.getElementById("mensaje").className += " alert-success";
-					document.getElementById('mensajeTexto').innerHTML = 'No dejaste nada';
+					document.getElementById('mensajeTexto').innerHTML = '<?php echo L::No_dejaste_nada; ?>';
 				}
 				if(codigoMensaje=='4'){
 					document.getElementById("mensaje").className += " alert-danger";
-					document.getElementById('mensajeTexto').innerHTML = 'Que GRAN fallo';
+					document.getElementById('mensajeTexto').innerHTML = '<?php echo L::Que_GRAN_Fallo; ?>';
 				}
 			}
 
@@ -197,7 +202,7 @@ include 'conexion.php';
 							document.getElementById('idPlaylist').value= video;
 							document.getElementById('nombre').value = document.getElementById('nombreCelda'+video).innerText
 							document.getElementById('descripcion').value = document.getElementById('descripcionCelda'+video).innerText
-							document.getElementById('guardar').value="Guarda";
+							document.getElementById('guardar').value="<?php echo L::Guarda; ?>";
 
 						});
 					}
@@ -213,14 +218,14 @@ include 'conexion.php';
  				
 
 					if($( this ).attr('id')== "irAInsertar"){
-						document.getElementById('guardar').value="Inserta";
+						document.getElementById('guardar').value="<?php echo L::Inserta; ?>";
 					}
 				}
 			});
 		});
 
 		 function confirmar() {
-           	return confirm('¿Esta seguro que quiere eliminar esta lista?');
+           	return confirm('<?php echo L::Esta_seguro_que_quiere_eliminar_esta_lista; ?>');
        }
 		
 	</script>

@@ -1,7 +1,7 @@
 <?php
 include 'sesion.php';
 include 'conexion.php';
-   
+require_once 'i18n.init.php';
    $sql = 'SELECT publicacion.id,descripcion,fecha,titulo,nombre FROM publicacion JOIN usuario ON usuario.id=publicacion.id_usuario order by fecha desc,id desc';
 ?>
 <html lang="es">
@@ -31,20 +31,20 @@ include 'conexion.php';
 			</div>
 			<div class="col-md-10 espacio-contenido">
 				<div id="mensaje" style="display:none;" class="alert alert-dismissible" role="alert">
-		 			<strong>Mensaje: </strong><div style="display:inline;" id="mensajeTexto"></div>
+		 			<strong><?php echo L::Mensaje; ?> </strong><div style="display:inline;" id="mensajeTexto"></div>
 				</div>
 				<form action="insertarPublicacion.php" method="POST">
 					<div class="form-group">
-						<label for="titulo">Aqui un titulo genial!!!</label>
+						<label for="titulo"><?php echo L::Aqui_Un_Titulo_Genial; ?></label>
 						<input id="titulo" type="text" name="titulo" class="form-control" maxlength="50"/>
 					</div>
 					<div class="form-group">
-						<label for="descripcion">Escribe lo que quieras amor</label>
+						<label for="descripcion"><?php echo L::Escribe_lo_que_quieras_Amor; ?></label>
 						<textarea id="descripcion" name="descripcion" class="form-control" rows="5" maxlength="1000"></textarea>
 					</div>
 					<div class="form-group">
-						<button type="submit" class="btn btn-primary">Mandalo!!!!!!!</button>
-						<button type="button" id="noti" class="btn btn-danger">Notificale a tu kokoro</button>
+						<button type="submit" class="btn btn-primary"><?php echo L::Mandalo; ?></button>
+						<button type="button" id="noti" class="btn btn-danger"><?php echo L::Notificale_a_tu_kokoro; ?></button>
 					</div>
 				</form>
 
@@ -72,14 +72,14 @@ if($result = mysqli_query($conexion, $sql)){
 							<textarea style="display:none;" id="descripcion<?php echo $row['id'];?>" name="descripcion" class="form-control" rows="5" maxlength="1000" ><?php echo $row['descripcion'];?></textarea>
 						</div>
 						<div class="form-group">
-							<button style="display:none;" type="submit" id="guardar<?php echo $row['id'];?>" class="btn btn-success" name="accion" value="Guarda">Guardar</button>
-							<button style="display:none;" type="submit" id="eliminar<?php echo $row['id'];?>" class="btn btn-danger" name="accion" value="Elimina">Eliminar</button>
+							<button style="display:none;" type="submit" id="guardar<?php echo $row['id'];?>" class="btn btn-success" name="accion" value="Guarda"><?php echo L::Guardar; ?></button>
+							<button style="display:none;" type="submit" id="eliminar<?php echo $row['id'];?>" class="btn btn-danger" name="accion" value="Elimina"><?php echo L::Eliminar; ?></button>
 						</div>
 					</form>
 					<br/>
 					<div id="html<?php echo $row['id'];?>" contenteditable="false"><?php echo $row['descripcion'];?></div>
 					<br/>
-					<a id="editar<?php echo $row['id'];?>" href="#titulo<?php echo $row['id'];?>" class="btn btn-warning">Cual editado papu :V</a>
+					<a id="editar<?php echo $row['id'];?>" href="#titulo<?php echo $row['id'];?>" class="btn btn-warning"><?php echo L::Cual_editado_papu_V; ?></a>
 
    <?php
    			}
@@ -102,6 +102,11 @@ if($result = mysqli_query($conexion, $sql)){
 				document.getElementById("nombreUsuario").innerHTML = '<?php echo $_SESSION['name'] ?> <span class="caret"></span>';
 
 				document.getElementById("index").className += "active";
+
+			$('.cambioIdioma').each(function(index){
+				$(this).attr('href',$(this).attr('href') + '<?php echo basename($_SERVER['PHP_SELF']); ?>' +location.search)
+			});	
+
 			});
 
 			var codigoMensaje = location.search.substr(1).split("?");
@@ -111,19 +116,19 @@ if($result = mysqli_query($conexion, $sql)){
 				document.getElementById('mensaje').style.display ='block' ;
 				if(codigoMensaje == '1'){
 					document.getElementById("mensaje").className += " alert-danger";
-					document.getElementById('mensajeTexto').innerHTML = 'No seas we :V te falta el titulo';
+					document.getElementById('mensajeTexto').innerHTML = '<?php echo L::No_seas_we_v_Te_falta_el_titulo; ?>';
 				}
 				if(codigoMensaje == '2'){
 					document.getElementById("mensaje").className += " alert-danger";
-					document.getElementById('mensajeTexto').innerHTML = 'Estas bien pendejo ni publicacion le hiciste';
+					document.getElementById('mensajeTexto').innerHTML = '<?php echo L::Estas_bien_pendejo_ni_publicacion_le_hiciste; ?>';
 				}
 				if(codigoMensaje=='3'){
 					document.getElementById("mensaje").className += " alert-success";
-					document.getElementById('mensajeTexto').innerHTML = 'Todo bonito';
+					document.getElementById('mensajeTexto').innerHTML = '<?php echo L::Todo_bonito; ?>';
 				}
 				if(codigoMensaje=='4'){
 					document.getElementById("mensaje").className += " alert-success";
-					document.getElementById('mensajeTexto').innerHTML = 'Oki';
+					document.getElementById('mensajeTexto').innerHTML = '<?php echo L::Oki; ?>';
 				}
 			}
 
