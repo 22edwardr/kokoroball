@@ -202,7 +202,7 @@ require_once 'i18n.init.php';
 							document.getElementById('idPlaylist').value= video;
 							document.getElementById('nombre').value = document.getElementById('nombreCelda'+video).innerText
 							document.getElementById('descripcion').value = document.getElementById('descripcionCelda'+video).innerText
-							document.getElementById('guardar').value="<?php echo L::Guarda; ?>";
+							document.getElementById('guardar').value="Guarda";
 
 						});
 					}
@@ -218,7 +218,7 @@ require_once 'i18n.init.php';
  				
 
 					if($( this ).attr('id')== "irAInsertar"){
-						document.getElementById('guardar').value="<?php echo L::Inserta; ?>";
+						document.getElementById('guardar').value="Inserta";
 					}
 				}
 			});

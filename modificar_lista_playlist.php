@@ -1,7 +1,6 @@
 <?php
 include 'conexion.php';
 include 'sesion.php';
-include 'i18n.class.php';
 
 $id=$_POST['id'];
 $nombre=$_POST['nombre'];
@@ -19,11 +18,11 @@ if($conexion->query($sql) === FALSE){
 }else{
 			$mensaje=0;
 
-	        if($accion==L::Guarda){
+	        if($accion=="Guarda"){
 	                $sql = "UPDATE lista_playlist SET nombre='".$nombre."', descripcion='".$descripcion."',fecha=now(),id_usuario='".$_SESSION['id']."' WHERE id=".$id;
 	                $mensaje=1;
 	                }
-	        else if($accion==L::Inserta){
+	        else if($accion=="Inserta"){
 	                $sql ="INSERT INTO lista_playlist(nombre,descripcion,fecha,id_usuario) VALUES ('".$nombre."','".$descripcion."',now(),'".$_SESSION['id']."')";
 	                $mensaje=2;
 	                }
