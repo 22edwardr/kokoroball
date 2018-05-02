@@ -20,11 +20,11 @@ if($conexion->query($sql) === FALSE){
 }else{
 			$mensaje=0;
 
-	        if($accion=="Guarda"){
+	        if($accion==L::Guarda){
 	                $sql = "UPDATE playlist SET nombre='".$nombre."', descripcion='".$descripcion."',link='".$link."',fecha=now(),id_usuario='".$_SESSION['id']."' WHERE id=".$id;
 	                $mensaje=1;
 	                }
-	        else if($accion=="Inserta"){
+	        else if($accion==L::Inserta){
 	                $sql ="INSERT INTO playlist(nombre,descripcion,link,fecha,id_usuario,lista_playlist) VALUES ('".$nombre."','".$descripcion."','".$link."',now(),'".$_SESSION['id']."','".$playlist."')";
 	                $mensaje=2;
 	                }
