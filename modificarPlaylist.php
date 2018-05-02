@@ -1,6 +1,7 @@
 <?php
 include 'conexion.php';
 include 'sesion.php';
+include 'i18n.class.php';
 
 $id=$_POST['id'];
 $nombre=$_POST['nombre'];
