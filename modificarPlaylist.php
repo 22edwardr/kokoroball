@@ -9,16 +9,22 @@ $link=$_POST['link'];
 $accion=$_POST['accion'];
 $playlist = $_POST['playlist'];
 
-if($accion !="Eliminar" && ($nombre == ""  || $link=="")){
-	header('Location: playlist.php?playlist='.$playlist.'&mensaje=4');
+if($accion !="Eliminar"){
+	if($nombre == ""  || $link==""){
+		header('Location: playlist.php?playlist='.$playlist.'&mensaje=4');
+	}
+
+	$link = youtube_parse_youtube_id($link);
+
+	if($link == false || strlen($link) != 11){
+		header('Location: playlist.php?playlist='.$playlist.'&mensaje=5');
+	}
 }
-else{
 $sql = "SET time_zone ='-5:00'";
-	
 if($conexion->query($sql) === FALSE){
         echo "Contactese con el administrador del sistema error al realizar operacion en base de datos:  ". $sql . "<br>" . $conexion->error;
-}else{
-			$mensaje=0;
+}else{	
+	$mensaje=0;
 
 	        if($accion=="Guarda"){
 	                $sql = "UPDATE playlist SET nombre='".$nombre."', descripcion='".$descripcion."',link='".$link."',fecha=now(),id_usuario='".$_SESSION['id']."' WHERE id=".$id;
@@ -36,11 +42,22 @@ if($conexion->query($sql) === FALSE){
 	        
 	        if($conexion->query($sql) === TRUE){
 
-	                        header('Location: playlist.php?playlist='.$playlist.'&mensaje='.$mensaje);
+	                 header('Location: playlist.php?playlist='.$playlist.'&mensaje='.$mensaje);
 	                } else {
 	                        echo "Contactese con el administrador del sistema error al realizar operacion en base de datos". $sql . "<br>" . $conexion->error;
 	                }
 	}
-}
 mysqli_close($conexion);
+
+
+function youtube_parse_youtube_id( $data )
+{
+	if( strlen($data) == 11 )
+	{
+		return $data;
+	}
+	
+	preg_match( "/^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/", $data, $matches);
+	return isset($matches[2]) ? $matches[2] : false;
+}
 ?> 

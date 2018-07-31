@@ -159,8 +159,8 @@ require_once 'i18n.init.php';
 							<label class="letra-negra" for="descripcion"><?php echo L::Descripcion; ?></label>
 							<input id="descripcion" type="text" name="descripcion" class="form-control" maxlength="100"/>
 							<br/>
-							<label class="letra-negra" for="link"><?php echo L::Zelda_11_caracteres_de_youtube; ?></label>
-							<input id="link" type="text" name="link" value="" class="form-control" maxlength="11"/>
+							<label class="letra-negra" for="link"><?php echo L::Zelda; ?></label>
+							<input id="link" type="text" name="link" value="" class="form-control"/>
 							<br/>
 				      </div>
 				      <div class="modal-footer">
@@ -218,6 +218,10 @@ require_once 'i18n.init.php';
 				if(codigoMensaje=='4'){
 					document.getElementById("mensaje").className += " alert-danger";
 					document.getElementById('mensajeTexto').innerHTML = '<?php echo L::Que_GRAN_Fallo; ?>';
+				}
+				if(codigoMensaje=='5'){
+					document.getElementById("mensaje").className += " alert-danger";
+					document.getElementById('mensajeTexto').innerHTML = '<?php echo L::Ese_zelda_no_sirve; ?>';
 				}
 			}
 
